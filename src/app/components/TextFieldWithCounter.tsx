@@ -6,9 +6,33 @@ interface TextFieldWithCounterProps {
   label: string;
 }
 
+function getEnvironmentStatus(): { text: string; className: string } {
+  const envVar = process.env.NEXT_PUBLIC_TEXT_FIELD_LABEL;
+  
+  if (!envVar) {
+    return {
+      text: '(ENV VAR MISSING)',
+      className: 'text-xs px-2 py-1 rounded bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-200'
+    };
+  }
+  
+  if (envVar.trim() === '') {
+    return {
+      text: '(ENV VAR EMPTY)',
+      className: 'text-xs px-2 py-1 rounded bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200'
+    };
+  }
+  
+  return {
+    text: '(ENV VAR LOADED)',
+    className: 'text-xs px-2 py-1 rounded bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200'
+  };
+}
+
 export default function TextFieldWithCounter({ label }: TextFieldWithCounterProps) {
   const [text, setText] = useState('');
   const [count, setCount] = useState(0);
+  const environmentStatus = getEnvironmentStatus();
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -18,7 +42,7 @@ export default function TextFieldWithCounter({ label }: TextFieldWithCounterProp
     <div className="flex flex-col gap-4 items-center">
       <div className="flex flex-col gap-2">
         <label htmlFor="textField" className="text-sm font-medium">
-          {label}
+          {label} <span className={environmentStatus.className}>{environmentStatus.text}</span>
         </label>
         <input
           id="textField"
