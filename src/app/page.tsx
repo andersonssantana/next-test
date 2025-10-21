@@ -1,6 +1,6 @@
 export default function Home() {
-  const textFieldLabel = process.env.PUBLIC_TEXT_FIELD_LABEL || "No label set";
-  const day = process.env.PUBLIC_DAY || "No day set";
+  const textFieldLabel = process.env.TEXT_FIELD_LABEL || "No label set";
+  const day = process.env.DAY || "No day set";
 
   return (
     <div className="font-sans flex items-center justify-center min-h-screen p-8">
