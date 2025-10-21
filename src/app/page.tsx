@@ -1,6 +1,9 @@
 export default function Home() {
+  // These are read at runtime from the server environment
   const textFieldLabel = process.env.TEXT_FIELD_LABEL || "No label set";
   const day = process.env.DAY || "No day set";
+
+  console.log('Environment variables:', { textFieldLabel, day, allEnv: Object.keys(process.env) });
 
   return (
     <div className="font-sans flex items-center justify-center min-h-screen p-8">
