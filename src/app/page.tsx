@@ -1,23 +1,9 @@
-import { GetServerSideProps } from "next";
-
-type Props = {
-  textFieldLabel: string;
-  day: string;
-}
-
-const getServerSideProps: GetServerSideProps<Props> = async () => {
+// This is a Server Component - runs on the server at runtime
+// In standalone mode, environment variables are read at runtime
+export default function Home() {
+  // Access environment variables directly in the Server Component
   const textFieldLabel = process.env.TEXT_FIELD_LABEL || "No label set";
   const day = process.env.DAY || "No day set";
-  return {
-    props: {
-      textFieldLabel,
-      day
-    }
-  }
-}
-
-// This is a Server Component - runs on the server at runtime
-export default function Home({textFieldLabel, day}: Props) {
   // Debug info: all available environment variables (excluding sensitive ones)
   const envVars = Object.keys(process.env).filter(key =>
     !key.includes('SECRET') &&
